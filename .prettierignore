@@ -1,0 +1,10 @@
+package-lock.json
+node_modules
+.vscode/settings.json
+*.sql
+*.yml
+__tests__
+build
+**/dist
+tsconfig*
+.eslint*
