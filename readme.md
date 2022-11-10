@@ -5,5 +5,5 @@ This project help to automate the dns proxy settings for local development envir
 Please free to follow the [readme](https://github.com/codekitchen/dinghy-http-proxy#readme).
 
 Thanks to
-https://github.com/codekitchen/dinghy-http-proxy
-https://github.com/aj-may/dotdocker
+[code kitten](https://github.com/codekitchen/dinghy-http-proxy)
+[AJ MAY](https://github.com/aj-may/dotdocker)

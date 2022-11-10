@@ -1,6 +1,6 @@
 .husky
 .vscode
-src
+./src
 .eslint*
 .gitignore
 .prettier*
@@ -137,7 +137,6 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
-dist
 
 # Gatsby files
 .cache/

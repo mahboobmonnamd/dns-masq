@@ -10,10 +10,7 @@
     [
       "@semantic-release/npm",
       {
-        "npmPublish": true,
-        "tarballDir": "dist/*.tgz",
-        "pkgRoot": "dist",
-        "assets": "dist/*.tgz"
+        "npmPublish": true
       }
     ],
     [
