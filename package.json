@@ -6,7 +6,6 @@
   "bin": {
     "dnsmasq-setup": "dist/src/index.js"
   },
-  "private": "false",
   "scripts": {
     "build": "tsc",
     "start": "ts-node src/index.ts",
