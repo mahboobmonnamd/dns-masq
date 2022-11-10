@@ -7,7 +7,6 @@
     "build": "tsc",
     "start": "ts-node src/index.ts",
     "semantic-release": "semantic-release",
-    "commitizen:init": "commitizen init cz-conventional-changelog && npm uninstall @commitlint/cli @commitlint/config-conventional && npm i @commitlint/cli @commitlint/config-conventional --save-optional",
     "format": "prettier --write \"src/**/*.ts\"",
     "prepare": "husky install"
   },
@@ -21,7 +20,10 @@
   "author": "Mahboob Monna Mohamed",
   "license": "ISC",
   "devDependencies": {
+    "@commitlint/cli": "^17.2.0",
+    "@commitlint/config-conventional": "^17.2.0",
     "@types/node": "^18.11.9",
+    "commitizen": "^4.2.5",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.27.0",
     "eslint-config-prettier": "^8.5.0",
@@ -49,9 +51,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "optionalDependencies": {
-    "@commitlint/cli": "^17.2.0",
-    "@commitlint/config-conventional": "^17.2.0"
   }
 }
