@@ -27,7 +27,6 @@ export const start = async () => {
               },
             },
           ]);
-          // start the container
         },
       },
     ],

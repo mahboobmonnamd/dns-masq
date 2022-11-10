@@ -21,18 +21,24 @@ export const darwinDnsMasq = async () => {
   await new Listr([
     {
       title: 'Setting up DNS Masq for Darwin platform',
+      skip: async (ctx) => {
+        try {
+          const fileContents = await readFilePromise(resolverPath, 'utf8');
+          if (fileContents === dnsMasqContents) return true;
+          return false;
+        } catch (err) {
+          return false;
+        }
+      },
       task: (ctx, task) => {
         return task.newListr(
           [
             {
-              title: 'Validate sudo access is given',
-              task: async (ctx, task) => {
-                if (await fileExists(nameServerPath)) ctx.skip = true;
-              },
-            },
-            {
               title: 'Creating name server configuration directory',
-              skip: (ctx): boolean => ctx.skip,
+              skip: async (ctx) => {
+                if (await fileExists(nameServerPath)) return true;
+                return false;
+              },
               task: async () => {
                 try {
                   await mkdirPromise(nameServerPath);

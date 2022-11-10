@@ -3,6 +3,8 @@
 import { Command } from 'commander';
 import { version } from '../package.json';
 import { start } from './commands/start';
+import { stop } from './commands/stop';
+import { restart } from './commands/restart';
 
 const program = new Command();
 
@@ -19,4 +21,9 @@ program
   .description('Pull and run the containers with DNS configuration')
   .action(start);
 
+program.command('stop').description('Stop the proxy docker containers').action(stop);
+
+program.command('restart').description('Restart the proxy docker containers').action(restart);
+
 program.parse(process.argv);
+if (!program.args.length) program.help();
