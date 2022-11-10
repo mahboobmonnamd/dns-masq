@@ -41,7 +41,7 @@ jobs:
       - name: Trigger the build
         run: |
           npm run build
-          npm run pack
+          npm pack
           
   SemanticRelease:
     name: Performing semantic release
