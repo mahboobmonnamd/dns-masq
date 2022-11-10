@@ -1,0 +1,109 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+
+  SetupEnvironment:
+    name: Initialize temporary environment
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup node environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'npm'
+      
+      - name: Restore Node modules from cache 
+        id: cache-node-modules
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install  Dependencies if missing from cache
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: |
+          npm ci --ignore-scripts --frozen-lockfile
+
+      - name: Trigger the build
+        run: |
+          npm run build
+          npm run pack
+          
+  SemanticRelease:
+    name: Performing semantic release
+    runs-on: ubuntu-latest
+    needs: SetupEnvironment
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
+
+      - name: Setup node environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: 'npm'
+        env:
+          GPR_TOKEN: ${{ secrets.GPR_TOKEN }}
+
+      - name: Restore Node modules from cache 
+        id: cache-node-modules
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+
+      - name: Install  Dependencies if missing from cache
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: |
+          npm ci --no-optional --ignore-scripts --frozen-lockfile
+        env:
+          SKIP_PREFLIGHT_CHECK: true
+          GPR_TOKEN: ${{ secrets.GPR_TOKEN }}
+          CI: true
+
+      - name: Semantic Release
+        run: npm run semantic-release
+        id: semantic
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GPR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Update permission for action
+        run: |
+          sudo chown -R $USER:$USER ${{ github.workspace }}
+          echo ${{join(steps.semantic.outputs.*, '\n')}}
+
+    outputs:
+      version: ${{ steps.semantic.outputs.nextVer }}
+
+  Print:
+    name: Print semantic release version captured
+    needs: SemanticRelease
+    runs-on: ubuntu-latest
+    steps:
+      - name: print version
+        run: echo ${{ needs.SemanticRelease.outputs.version }}

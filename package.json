@@ -2,16 +2,51 @@
   "name": "dnsmasq-setup",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/src/index.js",
+  "bin": {
+    "dnsmasq-setup": "dist/src/index.js"
+  },
   "scripts": {
     "build": "tsc",
-    "start": "ts-node src/index.ts"
+    "start": "ts-node src/index.ts",
+    "semantic-release": "semantic-release",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint . --fix",
+    "lint:md": "markdownlint -i node_modules",
+    "prepare": "husky install"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "dnsmasq",
+    "dns",
+    "domain name in docker",
+    "codekitten",
+    "http proxy"
+  ],
+  "author": "Mahboob Monna Mohamed",
   "license": "ISC",
   "devDependencies": {
+    "@commitlint/cli": "^17.2.0",
+    "@commitlint/config-conventional": "^17.2.0",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.6",
+    "@semantic-release/npm": "^9.0.1",
+    "@semantic-release/release-notes-generator": "^10.0.3",
     "@types/node": "^18.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "commitizen": "^4.2.5",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.27.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-markdown": "^3.0.0",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.0.3",
+    "markdownlint": "^0.26.2",
+    "markdownlint-cli": "^0.32.2",
+    "prettier": "^2.7.1",
+    "semantic-release": "^19.0.5",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
   },
@@ -19,5 +54,17 @@
     "commander": "^9.4.1",
     "dockerode": "^3.3.4",
     "listr2": "^5.0.5"
+  },
+  "lint-staged": {
+    "*.{ts, tsx}": [
+      "npm run format",
+      "eslint --cache --fix .",
+      "git add -A"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
