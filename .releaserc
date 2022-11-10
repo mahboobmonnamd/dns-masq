@@ -11,7 +11,9 @@
       "@semantic-release/npm",
       {
         "npmPublish": true,
-        "tarballDir": "dist"
+        "tarballDir": "dist/*.tgz",
+        "pkgRoot": "dist",
+        "assets": "dist/*.tgz"
       }
     ],
     [
