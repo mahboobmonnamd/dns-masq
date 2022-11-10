@@ -1,11 +1,12 @@
 {
   "name": "dnsmasq-setup",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/src/index.js",
   "bin": {
     "dnsmasq-setup": "dist/src/index.js"
   },
+  "private": "false",
   "scripts": {
     "build": "tsc",
     "start": "ts-node src/index.ts",
