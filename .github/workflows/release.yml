@@ -38,10 +38,6 @@ jobs:
         run: |
           npm ci --ignore-scripts --frozen-lockfile
 
-      - name: Trigger the build
-        run: |
-          npm run build
-          npm pack
           
   SemanticRelease:
     name: Performing semantic release
@@ -77,6 +73,11 @@ jobs:
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: |
           npm ci --no-optional --ignore-scripts --frozen-lockfile
+      
+      - name: Trigger the build
+        run: |
+          npm run build
+          npm pack
 
       - name: Semantic Release
         run: npm run semantic-release
