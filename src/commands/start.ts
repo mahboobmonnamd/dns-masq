@@ -19,7 +19,6 @@ export const start = async () => {
               },
             },
             {
-              //   pull docker image
               task: async () => {
                 await pullImage(proxyConfig.Image);
                 await createContainer(proxyConfig);
@@ -38,7 +37,6 @@ export const start = async () => {
 
   try {
     const ctx = await tasks.run();
-    console.log('🚀 ~ file: start.ts ~ line 39 ~ start ~ ctx', ctx);
   } catch (error) {
     console.log('🚀 ~ file: start.ts ~ line 34 ~ start ~ error', error);
   }

@@ -7,6 +7,6 @@ export const identifyArchitectureAndApplyDns = () => {
       break;
 
     default:
-      break;
+      throw new Error(`${process.platform} platform not yet supported`);
   }
 };
