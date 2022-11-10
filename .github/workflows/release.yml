@@ -58,8 +58,6 @@ jobs:
         with:
           node-version: 16.x
           cache: 'npm'
-        env:
-          GPR_TOKEN: ${{ secrets.GPR_TOKEN }}
 
       - name: Restore Node modules from cache 
         id: cache-node-modules
@@ -79,18 +77,13 @@ jobs:
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: |
           npm ci --no-optional --ignore-scripts --frozen-lockfile
-        env:
-          SKIP_PREFLIGHT_CHECK: true
-          GPR_TOKEN: ${{ secrets.GPR_TOKEN }}
-          CI: true
 
       - name: Semantic Release
         run: npm run semantic-release
         id: semantic
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GPR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       
       - name: Update permission for action
         run: |
