@@ -1,7 +1,7 @@
-import Docker from "dockerode";
-import { Listr } from "listr2";
-import { Transform } from "stream";
-import { getImage } from "./util";
+import Docker from 'dockerode';
+import { Listr } from 'listr2';
+import { Transform } from 'stream';
+import { getImage } from './util';
 
 const docker = new Docker();
 
@@ -16,16 +16,12 @@ const dockerPullStreamTransformer = () =>
           .toString()
           .split(/[\r\n]+/g)
           .filter((l) => !!l);
-        const {
-          id,
-          status,
-          progress = "",
-        } = JSON.parse(lines[lines.length - 1]);
+        const { id, status, progress = '' } = JSON.parse(lines[lines.length - 1]);
 
         callback(null, `${id}: ${status} ${progress}`);
       } catch (err) {
         // Return an empty string if the line received is not JSON
-        callback(null, "");
+        callback(null, '');
       }
     },
   });
@@ -34,14 +30,14 @@ export const pullImage = async (image: string) => {
   await new Listr(
     [
       {
-        title: "validate image exists",
+        title: 'validate image exists',
         task: async (ctx) => {
           try {
             const existingImage = await getImage(image);
             if (existingImage) ctx.skip = true;
           } catch (err: any) {
-            if (err.code === "ECONNREFUSED")
-              throw new Error("Can not connect to docker. Is docker running?");
+            if (err.code === 'ECONNREFUSED')
+              throw new Error('Can not connect to docker. Is docker running?');
             throw err;
           }
         },
@@ -54,8 +50,8 @@ export const pullImage = async (image: string) => {
             const stream = await docker.pull(image);
             return stream.pipe(dockerPullStreamTransformer());
           } catch (err: any) {
-            if (err.code === "ECONNREFUSED")
-              throw new Error("Can not connect to docker. Is docker running?");
+            if (err.code === 'ECONNREFUSED')
+              throw new Error('Can not connect to docker. Is docker running?');
             throw err;
           }
         },
@@ -64,6 +60,6 @@ export const pullImage = async (image: string) => {
     {
       concurrent: false,
       rendererOptions: { showSubtasks: true, collapse: false },
-    }
+    },
   ).run();
 };
