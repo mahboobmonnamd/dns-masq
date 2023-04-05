@@ -43,6 +43,7 @@ function dryRunConfig() {
 }
 
 function ciConfig() {
+  console.log('CI Config');
   return {
     branches: 'master',
     npmPublish: true,
