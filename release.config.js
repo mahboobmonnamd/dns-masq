@@ -19,9 +19,17 @@ function dryRunConfig() {
     repositoryUrl: getLocalRepoUrl(),
     branches: getCurrentBranch(),
     npmPublish: false,
+    debug: true,
+    ci: false,
     plugins: [
       '@semantic-release/commit-analyzer',
       '@semantic-release/release-notes-generator',
+      [
+        '@semantic-release/npm',
+        {
+          npmPublish: false,
+        },
+      ],
       [
         '@semantic-release/exec',
         {
@@ -37,11 +45,24 @@ function dryRunConfig() {
 function ciConfig() {
   return {
     branches: 'master',
-    npmPublish: false,
+    npmPublish: true,
+    debug: true,
+    ci: true,
     plugins: [
       '@semantic-release/commit-analyzer',
       '@semantic-release/release-notes-generator',
-      '@semantic-release/github',
+      [
+        '@semantic-release/github',
+        {
+          assets: 'dist/*.tgz',
+        },
+      ],
+      [
+        '@semantic-release/npm',
+        {
+          npmPublish: true,
+        },
+      ],
       [
         '@semantic-release/exec',
         {
