@@ -8,4 +8,5 @@ This repo will have a simple nodejs and typescript config to start development i
 2. Added gitignore.
 3. Added `eslint` and `prettier` for lint.
 4. For md files added `markdownlint`.
-5. Added [husky](https://typicode.github.io/husky/#/) for git hooks
+5. Added [husky](https://typicode.github.io/husky/#/) for git hooks.
+6. Added `commit-lint` configurations to manage the commit message validations.
