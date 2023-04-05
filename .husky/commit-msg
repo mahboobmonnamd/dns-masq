@@ -4,3 +4,4 @@
 echo Husky commit msg started
 
 npx --no -- commitlint --edit "$1"
+npx semantic-release --dry-run --no-ci
