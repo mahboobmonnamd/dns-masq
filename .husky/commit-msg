@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo Husky commit msg started
+
+npx --no -- commitlint --edit "$1"
+npx semantic-release --dry-run --no-ci

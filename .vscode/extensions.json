@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "eamodio.gitlens",
+        "esbenp.prettier-vscode",
+        "Gruntfuggly.todo-tree",
+        "streetsidesoftware.code-spell-checker",
+        "dbaeumer.vscode-eslint",
+        "DavidAnson.vscode-markdownlint",
+        "ChakrounAnas.turbo-console-log"
+    ]
+}

@@ -1,0 +1,13 @@
+{
+  "default": true,
+  "MD007": {
+    "indent": 4
+  },
+  "line-length": {
+    "line_length": 120,
+    "code_blocks": false,
+    "tables": false
+  },
+  "whitespace": false,
+  "no-hard-tabs": false
+}

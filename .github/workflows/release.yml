@@ -1,0 +1,84 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 'v18.x'
+
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: npm ci --frozen-lockfile
+
+      - name: Update dependencies
+        if: steps.cache-node-modules.outputs.cache-hit == 'true'
+        run: npm update --frozen-lockfile
+
+  release:
+    runs-on: ubuntu-latest
+    needs: setup
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 'v18.x'
+
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: npm ci --frozen-lockfile
+
+      - name: Run Semantic Release
+        id: semantic
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+
+      - name: Update permission for action
+        run: |
+          sudo chown -R $USER:$USER ${{github.workspace}}
+          echo ${{join(steps.semantic.outputs.*, '\n')}}
+
+    outputs:
+      version: ${{ steps.semantic.outputs.nextVer }}
+
+  print:
+    runs-on: ubuntu-latest
+    needs: release
+
+    steps:
+      - name: Print output
+        run: echo ${{ needs.release.outputs.version }}
