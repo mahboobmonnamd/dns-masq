@@ -47,7 +47,7 @@ function ciConfig() {
         {
           // Works for github actions
           // eslint-disable-next-line no-template-curly-in-string
-          publishCmd: 'echo ::set-output name=VER::${nextRelease.version}',
+          publishCmd: 'echo ::set-output name=nextVer::${nextRelease.version}',
         },
       ],
     ],
