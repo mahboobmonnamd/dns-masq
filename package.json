@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint:md": "markdownlint -i node_modules ."
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,8 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
+    "markdownlint": "^0.28.0",
+    "markdownlint-cli": "^0.33.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.3"
   }

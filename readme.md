@@ -7,3 +7,4 @@ This repo will have a simple nodejs and typescript config to start development i
 1. Useful plugins to use with VSCode.
 2. Added gitignore.
 3. Added eslint and prettier for lint.
+4. For md files added lint.
