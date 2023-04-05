@@ -10,3 +10,4 @@ This repo will have a simple nodejs and typescript config to start development i
 4. For md files added `markdownlint`.
 5. Added [husky](https://typicode.github.io/husky/#/) for git hooks.
 6. Added `commit-lint` configurations to manage the commit message validations.
+7. Added [Commitizen](https://www.npmjs.com/package/commitizen) for git commit with prompts.
