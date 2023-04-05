@@ -31,9 +31,10 @@ jobs:
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci --frozen-lockfile
 
-      - name: Update dependencies
-        if: steps.cache-node-modules.outputs.cache-hit == 'true'
-        run: npm update --frozen-lockfile
+      - name: Build
+        run: |
+          npm run build
+          npm pack
 
   release:
     runs-on: ubuntu-latest
