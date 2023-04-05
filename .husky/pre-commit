@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo Husky pre commit started
+
+# Run lint
+npm run lint
+npm run lint:md
+
+# Stage files modified
+git add -u
+
+# Run test
