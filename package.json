@@ -18,6 +18,10 @@
     "type": "git",
     "url": "git+https://github.com/mahboobmonnam/typescript-starter-nodejs.git"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "keywords": [
     "dnsmasq",
     "dns",
