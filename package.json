@@ -1,9 +1,13 @@
 {
-  "name": "typescript-starter-nodejs",
+  "name": "dnsmasq-setup",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/src/index.js",
+  "bin": {
+    "dnsmasq-setup": "dist/src/index.js"
+  },
   "scripts": {
+    "build": "tsc",
     "start": "ts-node src/index",
     "lint:md": "markdownlint -i node_modules . --fix",
     "lint": "eslint . --fix",
@@ -14,7 +18,17 @@
     "type": "git",
     "url": "git+https://github.com/mahboobmonnam/typescript-starter-nodejs.git"
   },
-  "author": "",
+  "keywords": [
+    "dnsmasq",
+    "dns",
+    "domain name in docker",
+    "http proxy"
+  ],
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "author": "Mahboob Monna Mohamed M",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mahboobmonnam/typescript-starter-nodejs/issues"
@@ -43,5 +57,10 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "commander": "^10.0.0",
+    "dockerode": "^3.3.5",
+    "listr2": "^5.0.8"
   }
 }
