@@ -50,4 +50,4 @@ Commands:
 Please feel free to follow [readme](https://github.com/codekitchen/dinghy-http-proxy#README)
 
 Thanks to 
-[Code Kitchen](https://github.com/codekitchen/dinghy-http-proxy) and [AJ May](https://github.dev/aj-may/dotdocker)
+[Code Kitchen](https://github.com/codekitchen/dinghy-http-proxy) and [AJ May](https://github.com/aj-may/dotdocker)
